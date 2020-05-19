@@ -11,15 +11,15 @@
 			transition="dialog-bottom-transition"
 		>
 			<template v-slot:activator="{ on }">
-				<v-btn outlined class="primary--text px-8" v-on="on"
+				<v-btn tile outlined class="primary--text px-8" v-on="on"
 					>Login</v-btn
 				>
 			</template>
 
-			<v-card dark>
+			<v-card>
 				<v-toolbar flat color="transparent">
 					<v-spacer></v-spacer>
-					<v-btn icon dark @click="auth_panel_dialog = false">
+					<v-btn icon @click="auth_panel_dialog = false">
 						<v-icon>mdi-close</v-icon>
 					</v-btn>
 				</v-toolbar>
@@ -48,12 +48,12 @@
 								</v-tab>
 								<v-tab-item key="login" value="tab-login">
 									<div class="mt-10">
-										<!-- <Login></Login> -->
+										<Login></Login>
 									</div>
 								</v-tab-item>
 								<v-tab-item key="register" value="tab-register">
 									<div class="mt-10">
-										<!-- <Register></Register> -->
+										<Register></Register>
 									</div>
 								</v-tab-item>
 							</v-tabs>
@@ -68,14 +68,14 @@
 </template>
 
 <script>
-// import Login from './Login.vue'
-// import Register from './Register.vue'
 import { mapGetters } from 'vuex'
+import Login from './Login.vue'
+import Register from './Register.vue'
 import SocialAuth from './AuthSocial.vue'
 import AuthAvatar from './AuthAvatar.vue'
 
 export default {
-	components: { SocialAuth, AuthAvatar },
+	components: { Login, Register, SocialAuth, AuthAvatar },
 
 	data() {
 		return {

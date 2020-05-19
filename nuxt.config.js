@@ -1,8 +1,19 @@
-import colors from 'vuetify/es5/util/colors'
 import vuetifyOptions from './plugins/vuetify'
+import axiosOptions from './plugins/axios'
+import authOptions from './plugins/auth'
+require('dotenv').config()
 
 export default {
 	mode: 'universal',
+	env: {
+		/* module options */
+		apiBaseUrl: process.env.API_BASE_URL || 'http://devilfish.local/api/',
+		baseUrl: process.env.BASE_URL || 'http://nuxt.devilfish.local:8000/',
+		appName: process.env.APP_NAME || 'DEVILFISH',
+		appDescription:
+			process.env.APP_DESCRIPTION ||
+			'UNLIMITED MOVIES, STAY DEVIL AND CHILL'
+	},
 	/*
 	 ** Headers of the page
 	 */
@@ -30,11 +41,15 @@ export default {
 	/*
 	 ** Global CSS
 	 */
-	css: [],
+	css: [
+		'@fortawesome/fontawesome-free/css/all.css',
+		'@mdi/font/css/materialdesignicons.css',
+		'material-design-icons-iconfont/dist/material-design-icons.css'
+	],
 	/*
 	 ** Plugins to load before mounting the App
 	 */
-	plugins: ['~/plugins/eventBus'],
+	plugins: ['~/plugins/eventBus', '~/plugins/filters'],
 	/*
 	 ** Nuxt.js dev-modules
 	 */
@@ -49,6 +64,7 @@ export default {
 	modules: [
 		// Doc: https://axios.nuxtjs.org/usage
 		'@nuxtjs/axios',
+		'@nuxtjs/auth',
 		// Doc: https://github.com/nuxt-community/dotenv-module
 		'@nuxtjs/dotenv'
 	],
@@ -56,28 +72,19 @@ export default {
 	 ** Axios module configuration
 	 ** See https://axios.nuxtjs.org/options
 	 */
-	axios: {},
+	axios: axiosOptions,
+
+	/*
+	 ** Auth module configuration
+	 ** See https://auth.nuxtjs.org/guide/setup.html
+	 */
+	auth: authOptions,
+
 	/*
 	 ** vuetify module configuration
 	 ** https://github.com/nuxt-community/vuetify-module
 	 */
-	vuetify: {
-		customVariables: ['~/assets/variables.scss'],
-		theme: {
-			dark: true,
-			themes: {
-				dark: {
-					primary: colors.blue.darken2,
-					accent: colors.grey.darken3,
-					secondary: colors.amber.darken3,
-					info: colors.teal.lighten1,
-					warning: colors.amber.base,
-					error: colors.deepOrange.accent4,
-					success: colors.green.accent3
-				}
-			}
-		}
-	},
+	vuetify: {},
 	/*
 	 ** Build configuration
 	 */
@@ -89,10 +96,13 @@ export default {
 			// Run ESLint on save
 			if (ctx.isDev && ctx.isClient) {
 				config.module.rules.push({
-					enforce: "pre",
+					enforce: 'pre',
 					test: /\.(js|vue)$/,
-					loader: "eslint-loader",
-					exclude: /(node_modules)/
+					loader: 'eslint-loader',
+					exclude: /(node_modules)/,
+					options: {
+						fix: true
+					}
 				})
 			}
 		}

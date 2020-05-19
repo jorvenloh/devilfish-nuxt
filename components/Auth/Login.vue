@@ -6,19 +6,14 @@
 				:show-alert="errors.email_not_verified"
 			></EmailVerificationAlert>
 		</div>
-		<v-form
-			ref="form"
-			class="secondary--text"
-			lazy-validation
-			@submit.prevent="postLogin()"
-		>
+		<v-form ref="form" lazy-validation @submit.prevent="postLogin()">
 			<v-text-field
 				v-model="form.email"
 				autofocus
-				prepend-inner-icon="email"
+				prepend-inner-icon="mdi-email"
 				label="Email"
 				outlined
-				:rules="[required]"
+				:rules="[required, email]"
 				:error-messages="errors['email']"
 			></v-text-field>
 
@@ -46,7 +41,8 @@
 					large
 					outlined
 					color="primary"
-					to="/forgot-password"
+					to="/authentication/forgot-password"
+					nuxt
 					@click="forgotPassword()"
 					>Forgot Password?</v-btn
 				>
@@ -65,6 +61,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import inputRulesMixin from '@/mixins/inputRulesMixin'
 import EmailVerificationAlert from '@/components/Auth/EmailVerificationAlert'
 
@@ -87,9 +84,7 @@ export default {
 	},
 
 	computed: {
-		avatarLabel() {
-			return this.$store.getters.userDisplayName({ brief: true })
-		}
+		...mapActions('auth', ['performLogin'])
 	},
 
 	methods: {
@@ -100,17 +95,17 @@ export default {
 
 			if (this.$refs.form.validate()) {
 				this.$store
-					.dispatch('performLogin', this.form)
+					.dispatch('authenticate/performLogin', this.form)
 					.then(() => {
 						// console.log(response);
 						// reset form
 						this.$refs.form.reset()
 
 						// pop snackbar
-						this.$eventBus.$emit('open_snackbar', {
-							message: 'You have login successfully',
-							optionalArgs: { bgColor: 'primary' }
-						})
+						// this.$eventBus.$emit('open_snackbar', {
+						// 	message: 'You have login successfully',
+						// 	optionalArgs: { bgColor: 'primary' }
+						// })
 
 						// close auth panel
 						this.$eventBus.$emit('close_authPanel')

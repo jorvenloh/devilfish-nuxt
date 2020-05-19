@@ -1,7 +1,9 @@
+import colors from 'vuetify/es5/util/colors'
 import customTheme from './theme'
-//import '@fortawesome/fontawesome-free/css/all.css'
 
 export default {
+	customVariables: ['~/assets/variables.scss'],
+	treeShake: true,
 	theme: {
 		options: {
 			customProperties: true
@@ -13,6 +15,6 @@ export default {
 		}
 	},
 	icons: {
-		iconfont: 'mdi',
+		iconfont: 'mdi'
 	}
 }

@@ -2,21 +2,18 @@
 	<v-app dark>
 		<AppNavigationBar></AppNavigationBar>
 		<v-content>
-			<v-container>
-				<nuxt />
-			</v-container>
+			<nuxt />
 		</v-content>
-		<v-footer :fixed="fixed" app>
-			<span>&copy; {{ new Date().getFullYear() }}</span>
-		</v-footer>
+		<AppFooter></AppFooter>
 	</v-app>
 </template>
 
 <script>
 import AppNavigationBar from '@/components/AppNavigationBar'
+import AppFooter from '@/components/AppFooter'
 
 export default {
-	components: { AppNavigationBar },
+	components: { AppNavigationBar, AppFooter },
 	data() {
 		return {
 			clipped: false,
@@ -42,3 +39,5 @@ export default {
 	}
 }
 </script>
+
+<style scoped></style>

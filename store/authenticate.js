@@ -47,23 +47,23 @@ export const mutations = {
 export const actions = {
 	performLogin(context, loginParams) {
 		return new Promise((resolve, reject) => {
-			// axios
-			// 	.post('/login', loginParams)
-			// 	.then((response) => {
-			// 		const {
-			// 			user: { email },
-			// 			user: { username },
-			// 			access_token
-			// 		} = response.data
-			// 		context.commit('setAccessToken', access_token)
-			// 		context.commit('setEmail', email)
-			// 		if (username) context.commit('setUsername', username)
-			// 		resolve(response.data)
-			// 	})
-			// 	.catch((error) => {
-			// 		console.log(error)
-			// 		reject(error.response.data)
-			// 	})
+			this.$axios
+				.$post('/login', loginParams)
+				.then((response) => {
+					const {
+						user: { email },
+						user: { username },
+						access_token: accessToken
+					} = response.data
+					context.commit('setAccessToken', accessToken)
+					context.commit('setEmail', email)
+					if (username) context.commit('setUsername', username)
+					resolve(response.data)
+				})
+				.catch((error) => {
+					console.log(error)
+					reject(error.response.data)
+				})
 		})
 	},
 	performLogout(context) {
