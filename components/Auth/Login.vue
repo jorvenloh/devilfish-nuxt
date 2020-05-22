@@ -78,35 +78,31 @@ export default {
 
 	methods: {
 		login() {
-			this.$toast.success('You have logged in', {
-				icon: 'done'
-			})
+			if (this.$refs.form.validate()) {
+				this.errors = {}
+				this.loading = true
+				this.$auth.$storage.setState('errors', null)
 
-			// if (this.$refs.form.validate()) {
-			// 	this.errors = {}
-			// 	this.loading = true
-			// 	this.$auth.$storage.setState('errors', null)
-
-			// 	this.$auth
-			// 		.loginWith('password_grant_custom', {
-			// 			data: this.form
-			// 		})
-			// 		.then(() => {
-			// 			this.$toast.success('You have logged in', {
-			// 				icon: 'done'
-			// 			})
-			// 		})
-			// 		.catch(() => {
-			// 			if (this.$auth.$storage.getState('errors')) {
-			// 				this.errors = this.$auth.$storage.getState('errors')
-			// 				if (this.errors.registered_email)
-			// 					this.registered_email = this.errors.registered_email
-			// 			}
-			// 		})
-			// 		.finally(() => {
-			// 			this.loading = false
-			// 		})
-			// }
+				this.$auth
+					.loginWith('password_grant_custom', {
+						data: this.form
+					})
+					.then(() => {
+						this.$toast.success('You have logged in', {
+							icon: 'done'
+						})
+					})
+					.catch(() => {
+						if (this.$auth.$storage.getState('errors')) {
+							this.errors = this.$auth.$storage.getState('errors')
+							if (this.errors.registered_email)
+								this.registered_email = this.errors.registered_email
+						}
+					})
+					.finally(() => {
+						this.loading = false
+					})
+			}
 		},
 		forgotPassword() {
 			this.$eventBus.$emit('close_authPanel')

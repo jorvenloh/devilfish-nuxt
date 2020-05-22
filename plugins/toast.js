@@ -1,6 +1,6 @@
 export default {
 	position: 'bottom-left',
-	duration: 50000,
+	duration: 5000,
 	keepOnHover: true,
 	className: 'toast-message',
 	register: [

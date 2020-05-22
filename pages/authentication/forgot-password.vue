@@ -60,22 +60,23 @@ export default {
 
 			// local validate form
 			if (this.$refs.form.validate()) {
-				this.$http
-					.post('/forgot-password', this.form)
+				this.$axios
+					.$post('/api/forgot-password', this.form)
 					.then((response) => {
-						console.log(response)
-						this.$eventBus.$emit('open_snackbar', {
-							message: 'Email sent, please check your inbox',
-							optionalArgs: { bgColor: 'success' }
-						})
+						// console.log(response)
+						if (response.success)
+							this.$toast.success(
+								'Email resent, please check your inbox',
+								{ icon: 'check' }
+							)
 						this.$refs.form.reset()
 					})
 					.catch((error) => {
 						this.errors = error.response.data.errors
-						this.$eventBus.$emit('open_snackbar', {
-							message: 'Failed to send email',
-							optionalArgs: { bgColor: 'error' }
-						})
+						if (this.errors.message)
+							this.$toast.error(this.errors.message, {
+								icon: 'error'
+							})
 					})
 					.finally(() => {
 						this.loading = false
