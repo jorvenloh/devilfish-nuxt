@@ -1,0 +1,7 @@
+.toast-message{
+	font-family: Roboto;
+}
+.toasted-container.bottom-left {
+    left: 2%!important;
+    bottom: 2%!important;
+}
