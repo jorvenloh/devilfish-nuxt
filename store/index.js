@@ -9,8 +9,11 @@ export const state = () => ({
 })
 
 export const mutations = {
-	increment(state) {
-		state.counter++
+	// increment(state) {
+	// 	state.counter++
+	// }
+	myEmail: (state) => {
+		return state.auth.user.email
 	}
 }
 

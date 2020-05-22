@@ -1,10 +1,10 @@
 <template>
-	<div class="d-flex justify-center my-12">
+	<div class="plancard-container d-flex flex-wrap justify-center my-12">
 		<v-card
 			v-for="(item, index) in plans"
 			:key="index"
 			dark
-			class="mx-5 plancard"
+			class="ma-5 plancard"
 			min-width="250"
 			nuxt
 			@click="navigateToPlan(item.name)"
@@ -84,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+.plancard-container {
+	/* overflow: auto; */
+}
+
 .plancard {
 	background: linear-gradient(#f8ff95, #005256);
 }

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="avatarLabel">
+		<div v-if="this.$auth.loggedIn">
 			<AuthAvatar></AuthAvatar>
 		</div>
 		<v-dialog

@@ -55,7 +55,7 @@ export default {
 	data() {
 		return {
 			loading: false,
-			cooldown_timer: 60,
+			cooldown_timer: 3,
 			counter: this.cooldown_timer
 		}
 	},
@@ -79,17 +79,22 @@ export default {
 	methods: {
 		resendVerificationEmail() {
 			this.cooldownResendButton()
-			this.$http
-				.post('/email/resend', { email: this.email })
+			this.$axios
+				.$post('api/email/resend', { email: this.email })
 				.then((response) => {
-					if (response.data.resent)
-						this.$eventBus.$emit('open_snackbar', {
-							message: 'Email resent, please check your inbox',
-							optionalArgs: { bgColor: 'success' }
-						})
+					// console.log(response)
+					if (response.resent)
+						this.$toast.success(
+							'Email resent, please check your inbox',
+							{ icon: 'check' }
+						)
 				})
 				.catch((error) => {
-					console.log(error.response.data)
+					console.log(error)
+					this.$toast.error(
+						'Failed to resend, please try again later',
+						{ icon: 'error' }
+					)
 				})
 		},
 		cooldownResendButton() {

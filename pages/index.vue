@@ -15,73 +15,65 @@
 			</v-row>
 		</v-parallax>
 
-		<!-- Featuring products -->
-		<v-row>
-			<v-col class="text-center">
-				<h1>Featuring posts horse light</h1>
-				<div class="d-flex justify-center">
-					<v-btn small>
-						Small
-					</v-btn>
-					<v-btn>
-						Defalt
-					</v-btn>
-					<v-btn large>
-						Large
-					</v-btn>
-					<v-btn x-large>
-						X-Large
-					</v-btn>
-				</div>
-			</v-col>
-		</v-row>
+		<v-container>
+			<!-- Featuring products -->
+			<v-row class="mt-12 justify-center">
+				<v-col class="col-sm-11">
+					<v-card
+						min-height="300"
+						width="100%"
+						class="d-flex justify-center align-center"
+					>
+						<h1>Featuring products horse light</h1>
+					</v-card>
+				</v-col>
+			</v-row>
 
-		<!-- Featuring posts -->
-		<v-row>
-			<v-col class="text-center">
-				<h1>Featuring posts horse light</h1>
-			</v-col>
-		</v-row>
+			<!-- Featuring products -->
+			<v-row class="mt-12 justify-center">
+				<v-col class="col-sm-11">
+					<v-card
+						min-height="300"
+						width="100%"
+						class="d-flex justify-center align-center"
+					>
+						<h1>Featuring post horse light</h1>
+					</v-card>
+				</v-col>
+			</v-row>
 
-		<v-row>
-			<v-col>
-				<h1>Ready to watch?</h1>
-			</v-col>
-		</v-row>
+			<v-row class="mt-12" style="overflow: auto">
+				<v-col class="text-center">
+					<h1>Ready to watch?</h1>
+					<PlanCards></PlanCards>
+				</v-col>
+			</v-row>
 
-		<v-row>
-			<v-col>
-				<PlanCards></PlanCards>
-			</v-col>
-		</v-row>
-		<v-row no-gutters>
-			<v-col class="col-md-6">
-				<v-card flat min-height="1000" class="background">
-					<h1>Follow us</h1>
-					<v-form>
-						<v-text-field
-							prepend-inner-icon="mdi-email"
-							label="Email"
-							outlined
-						></v-text-field>
-					</v-form>
-				</v-card>
-			</v-col>
-			<v-col class="col-md-6">
-				<v-card flat min-height="500">
-					<h1>Drop us a email</h1>
-				</v-card>
-			</v-col>
-		</v-row>
+			<v-row class="mt-12">
+				<v-col class>
+					<NewsletterSubscriptionPanel></NewsletterSubscriptionPanel>
+				</v-col>
+			</v-row>
+
+			<v-row>
+				<v-col class="col">
+					<v-card flat min-height="500">
+						<h1>Drop us a email</h1>
+					</v-card>
+				</v-col>
+			</v-row>
+		</v-container>
 	</div>
 </template>
 
 <script>
 import PlanCards from '@/components/Landing/PlanCards'
+import NewsletterSubscriptionPanel from '@/components/NewsletterSubscriptionPanel'
 
 export default {
 	components: {
-		PlanCards
+		PlanCards,
+		NewsletterSubscriptionPanel
 	}
 }
 </script>

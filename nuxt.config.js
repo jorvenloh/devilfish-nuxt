@@ -1,13 +1,14 @@
 import vuetifyOptions from './plugins/vuetify'
 import axiosOptions from './plugins/axios'
-import authOptions from './plugins/auth'
+import authOptions from './plugins/authOptions'
+import toastOptions from './plugins/toast'
 require('dotenv').config()
 
 export default {
 	mode: 'universal',
 	env: {
 		/* module options */
-		apiBaseUrl: process.env.API_BASE_URL || 'http://devilfish.local/api/',
+		apiBaseUrl: process.env.API_BASE_URL || 'http://devilfish.local/',
 		baseUrl: process.env.BASE_URL || 'http://nuxt.devilfish.local:8000/',
 		appName: process.env.APP_NAME || 'DEVILFISH',
 		appDescription:
@@ -44,7 +45,8 @@ export default {
 	css: [
 		'@fortawesome/fontawesome-free/css/all.css',
 		'@mdi/font/css/materialdesignicons.css',
-		'material-design-icons-iconfont/dist/material-design-icons.css'
+		'material-design-icons-iconfont/dist/material-design-icons.css',
+		'~/css/main.css'
 	],
 	/*
 	 ** Plugins to load before mounting the App
@@ -56,7 +58,7 @@ export default {
 	buildModules: [
 		// Doc: https://github.com/nuxt-community/eslint-module
 		'@nuxtjs/eslint-module',
-		['@nuxtjs/vuetify', vuetifyOptions]
+		'@nuxtjs/vuetify'
 	],
 	/*
 	 ** Nuxt.js modules
@@ -66,7 +68,8 @@ export default {
 		'@nuxtjs/axios',
 		'@nuxtjs/auth',
 		// Doc: https://github.com/nuxt-community/dotenv-module
-		'@nuxtjs/dotenv'
+		'@nuxtjs/dotenv',
+		'@nuxtjs/toast'
 	],
 	/*
 	 ** Axios module configuration
@@ -84,7 +87,14 @@ export default {
 	 ** vuetify module configuration
 	 ** https://github.com/nuxt-community/vuetify-module
 	 */
-	vuetify: {},
+	vuetify: vuetifyOptions,
+
+	/*
+	 ** toast module configuration
+	 ** https://github.com/shakee93/vue-toasted
+	 */
+	toast: toastOptions,
+
 	/*
 	 ** Build configuration
 	 */

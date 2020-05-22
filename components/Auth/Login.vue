@@ -6,7 +6,7 @@
 				:show-alert="errors.email_not_verified"
 			></EmailVerificationAlert>
 		</div>
-		<v-form ref="form" lazy-validation @submit.prevent="postLogin()">
+		<v-form ref="form" lazy-validation @submit.prevent="login()">
 			<v-text-field
 				v-model="form.email"
 				autofocus
@@ -28,13 +28,6 @@
 				:error-messages="errors['password']"
 				@click:append="show_password = !show_password"
 			></v-text-field>
-
-			<v-checkbox
-				v-model="form.remember_me"
-				class="mt-0"
-				color="primary"
-				label="Remember me"
-			></v-checkbox>
 
 			<div class="mt-5 d-flex flex-wrap justify-space-between">
 				<v-btn
@@ -61,7 +54,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import inputRulesMixin from '@/mixins/inputRulesMixin'
 import EmailVerificationAlert from '@/components/Auth/EmailVerificationAlert'
 
@@ -76,49 +68,45 @@ export default {
 			formHasErrors: false,
 			form: {
 				email: '',
-				password: '',
-				remember_me: false
+				password: ''
 			},
 			registered_email: null
 		}
 	},
 
-	computed: {
-		...mapActions('auth', ['performLogin'])
-	},
+	computed: {},
 
 	methods: {
-		postLogin() {
-			// reset errors
-			this.errors = {}
-			this.loading = true
+		login() {
+			this.$toast.success('You have logged in', {
+				icon: 'done'
+			})
 
-			if (this.$refs.form.validate()) {
-				this.$store
-					.dispatch('authenticate/performLogin', this.form)
-					.then(() => {
-						// console.log(response);
-						// reset form
-						this.$refs.form.reset()
+			// if (this.$refs.form.validate()) {
+			// 	this.errors = {}
+			// 	this.loading = true
+			// 	this.$auth.$storage.setState('errors', null)
 
-						// pop snackbar
-						// this.$eventBus.$emit('open_snackbar', {
-						// 	message: 'You have login successfully',
-						// 	optionalArgs: { bgColor: 'primary' }
-						// })
-
-						// close auth panel
-						this.$eventBus.$emit('close_authPanel')
-					})
-					.catch((response) => {
-						// console.log(response.errors);
-						if (response.errors) this.errors = response.errors
-						if (response.registered_email)
-							this.registered_email = response.registered_email
-					})
-			}
-
-			this.loading = false
+			// 	this.$auth
+			// 		.loginWith('password_grant_custom', {
+			// 			data: this.form
+			// 		})
+			// 		.then(() => {
+			// 			this.$toast.success('You have logged in', {
+			// 				icon: 'done'
+			// 			})
+			// 		})
+			// 		.catch(() => {
+			// 			if (this.$auth.$storage.getState('errors')) {
+			// 				this.errors = this.$auth.$storage.getState('errors')
+			// 				if (this.errors.registered_email)
+			// 					this.registered_email = this.errors.registered_email
+			// 			}
+			// 		})
+			// 		.finally(() => {
+			// 			this.loading = false
+			// 		})
+			// }
 		},
 		forgotPassword() {
 			this.$eventBus.$emit('close_authPanel')

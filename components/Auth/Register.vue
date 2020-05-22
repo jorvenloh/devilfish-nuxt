@@ -60,8 +60,9 @@
 									>Terms of use</a
 								>
 							</template>
-							Opens in new window </v-tooltip
-						>as well as the
+							Opens in new window
+						</v-tooltip>
+						as well as the
 						<v-tooltip bottom>
 							<template v-slot:activator="{ on }">
 								<a
@@ -72,8 +73,9 @@
 									>User Privacy</a
 								>
 							</template>
-							Opens in new window </v-tooltip
-						>and
+							Opens in new window
+						</v-tooltip>
+						and
 						<v-tooltip bottom>
 							<template v-slot:activator="{ on }">
 								<a
@@ -156,29 +158,24 @@ export default {
 			// local validate form
 			if (this.$refs.form.validate()) {
 				this.loading = true
-				this.$http
-					.post('/register', this.form)
+				this.$axios
+					.$post('/api/register', this.form)
 					.then((response) => {
-						const registeredEmail = response.data.registered_email
+						const registeredEmail = response.registered_email
 						this.registered_email = registeredEmail
-
 						this.show_email_verification_alert = true
-
-						// reset form
 						this.$refs.form.reset()
 
-						// close auth panel
-						// this.$eventBus.$emit('close_authPanel');
+						this.$toast.success('Signed up successfully', {
+							icon: 'done'
+						})
 					})
 					.catch((error) => {
 						// console.log(error.response.data.errors);
-						// set error
-
 						this.errors = error.response.data.errors
-						// pop snackbar
-						this.$eventBus.$emit('open_snackbar', {
-							message: 'Registration failed',
-							optionalArgs: { bgColor: 'error' }
+
+						this.$toast.success('Sign up failed', {
+							icon: 'done'
 						})
 					})
 					.finally(() => {
