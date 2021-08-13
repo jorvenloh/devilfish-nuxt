@@ -6,10 +6,15 @@ require('dotenv').config()
 
 export default {
 	mode: 'universal',
+	server: {
+		port: 8000, // default: 3000
+		host: 'www.devilfish-nuxt.local', // default: localhost,
+		timing: false
+	},
 	env: {
 		/* module options */
 		apiBaseUrl: process.env.API_BASE_URL || 'http://devilfish.local/',
-		baseUrl: process.env.BASE_URL || 'http://nuxt.devilfish.local:8000/',
+		baseUrl: process.env.BASE_URL || 'http://www.devilfish-nuxt.local/',
 		appName: process.env.APP_NAME || 'DEVILFISH',
 		appDescription:
 			process.env.APP_DESCRIPTION ||

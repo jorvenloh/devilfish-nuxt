@@ -8,7 +8,7 @@ export default {
 		{
 			name: 'server_error',
 			message: (payload) => {
-				if (!payload.message) return "Opss, something went wrong"
+				if (!payload.message) return 'Opss, something went wrong'
 				return payload.message
 			},
 			options: {
@@ -23,7 +23,6 @@ export default {
 				type: 'error',
 				icon: 'error'
 			}
-		},
-
+		}
 	]
 }
